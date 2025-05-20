@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/quran.dart';
-import 'package:quran_app/globalhelpers/constants.dart';
 import 'package:quran_app/utils/colors_manager.dart';
 import 'package:quran_app/widgets/basmallah.dart';
 import 'package:quran_app/widgets/header_widget.dart';
@@ -257,7 +256,6 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                   color: m.Colors.black,
                                   fontSize: 23.sp
                                       .toDouble(),
-                                  
                                 ),
                                 children:getPageData(index)
                                     .expand((e) {

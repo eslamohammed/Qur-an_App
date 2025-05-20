@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quran_app/globalhelpers/constants.dart';
+import 'package:quran_app/utils/colors_manager.dart';
 import 'package:quran_app/views/quran_sura_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -35,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: quranPagesColor,
+      backgroundColor: ColorManager.lilacPetals,
       body: Center(
         child: ElevatedButton(
             onPressed: () {
