@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:quran_app/views/my_home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp();
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override

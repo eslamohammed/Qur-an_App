@@ -51,11 +51,11 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
           prefixIcon: widget.isPasswordField == true
               ? const Icon(
                   Icons.lock,
-                  color: Colors.black,
+                  color: Colors.black87,
                 )
               :
                 Icon( widget.icon,
-                  color: Colors.black,
+                  color: Colors.black54,
 
                 ),
           suffixIcon: GestureDetector(

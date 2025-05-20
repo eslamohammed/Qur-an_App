@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 // import 'package:quran/dart';
 import 'package:quran/quran.dart';
@@ -107,65 +109,10 @@ class _QuranPageState extends State<QuranPage> {
                   ),
                 ),
                 const SizedBox(height: 20,),
-                // TextField(
-                //   textDirection: TextDirection.rtl,
-                //   controller: textEditingController,
-                //   onChanged: (value) {
-                //     setState(() {
-                //       searchQuery = value;
-                //     });
-
-                //     if (value == "") {
-                //       filteredData = widget.suraJsonData;
-
-                //       pageNumbers = [];
-
-                //       setState(() {});
-                //     }
-
-                //     if (searchQuery.isNotEmpty &&
-                //         isInt(searchQuery) &&
-                //         toInt(searchQuery) < 605 &&
-                //         toInt(searchQuery) > 0) {
-                //       pageNumbers.add(toInt(searchQuery));
-                //     }
-
-                //     if (searchQuery.length > 3 ||
-                //         searchQuery.toString().contains(" ")) {
-                //       setState(() {
-                //         ayatFiltered = [];
-
-                //         ayatFiltered = searchWords(searchQuery);
-                //         filteredData = widget.suraJsonData.where((sura) {
-                //           final suraName = sura['englishName'].toLowerCase();
-                //           // final suraNameTranslated =
-                //           //     sura['name']
-                //           //         .toString()
-                //           //         .toLowerCase();
-                //           final suraNameTranslated =
-                //               getSurahNameArabic(sura["number"]);
-
-                //           return suraName.contains(searchQuery.toLowerCase()) ||
-                //               suraNameTranslated
-                //                   .contains(searchQuery.toLowerCase());
-                //         }).toList();
-                //       });
-                //     }
-                //   },
-                //   style: const TextStyle(color: Color.fromARGB(190, 0, 0, 0)),
-                //   decoration: const InputDecoration(
-                //     hintText: 'searchQuran',
-                //     hintStyle: TextStyle(),
-                //     border: InputBorder.none,
-                //   ),
-                // ),
-                
                 if (pageNumbers.isNotEmpty)
-                  Container(
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("page"),
-                    ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text("page"),
                   ),
                 ListView.separated(
                     reverse: true,
@@ -173,7 +120,9 @@ class _QuranPageState extends State<QuranPage> {
                       return Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: EasyContainer(
-                          onTap: () {},
+                          onTap: () {
+                            //////
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -221,6 +170,20 @@ class _QuranPageState extends State<QuranPage> {
                     return Padding(
                       padding: const EdgeInsets.all(0.0),
                       child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.teal.shade200),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.green.withOpacity(0.075),
+                              blurRadius: 6,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        ////////////////////////////////////////
                         child: ListTile(
                           leading: SizedBox(
                             width: 45,
@@ -257,25 +220,24 @@ class _QuranPageState extends State<QuranPage> {
                             style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey.withOpacity(.8)),
-                          ),trailing: RichText(text:  TextSpan(text:                suraNumber.toString(),
-
-                  // textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontFamily: "arsura",
-                    fontSize: 22,color: Colors.black
-             
-                  ),
-                )),
-                          onTap: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (builder) => QuranViewPage(
-                                        shouldHighlightText: false,
-                                        highlightVerse: "",
-                                        jsonData: widget.suraJsonData,
-                                        pageNumber: getPageNumber(
-                                            suraNumberInQuran, 1))));
+                          ),trailing: RichText(
+                            text:  TextSpan(text:                suraNumber.toString(),
+                        style: const TextStyle(
+                        fontFamily: "arsura",
+                        fontSize: 22,color: Colors.black
+                
+                      ),
+                    )),
+                onTap: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (builder) => QuranViewPage(
+                              shouldHighlightText: false,
+                              highlightVerse: "",
+                              jsonData: widget.suraJsonData,
+                              pageNumber: getPageNumber(
+                                  suraNumberInQuran, 1))));
                           },
                         ),
                       ),
@@ -293,8 +255,8 @@ class _QuranPageState extends State<QuranPage> {
                       return Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: EasyContainer(
-                          color: Colors.white70,
-                          borderRadius: 14,
+                          color:Colors.green.withOpacity(0.05),////
+                          borderRadius: 12,
                           onTap: () async {},
                           child: Text(
                             "سورة ${getSurahNameArabic(ayatFiltered["result"][index]["surah"])} - ${getVerse(ayatFiltered["result"][index]["surah"], ayatFiltered["result"][index]["verse"], verseEndSymbol: true)}",

@@ -5,7 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/quran.dart';
 import 'package:quran_app/globalhelpers/constants.dart';
@@ -15,7 +14,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 
 class QuranViewPage extends StatefulWidget {
   int pageNumber;
-  var jsonData;
+  var jsonData;  //for surah
   var shouldHighlightText;
   var highlightVerse;
   QuranViewPage({
@@ -37,6 +36,8 @@ class _QuranViewPageState extends State<QuranViewPage> {
     604, // Replace with the number of pages in your PageView
     (_) => GlobalKey(),
   );
+
+  /// get index of page number from constructor
   setIndex() {
     setState(() {
       index = widget.pageNumber;
@@ -46,7 +47,17 @@ class _QuranViewPageState extends State<QuranViewPage> {
   int index = 0;
   late PageController _pageController;
   late Timer timer;
-  String selectedSpan = "";
+  String selectedSpan = ""; // select ayah
+
+
+  void keepScreenOn() {
+    WakelockPlus.enable(); // يجعل الشاشة لا تنطفئ
+  }
+
+  
+  void doNotKeepScreenOn() {
+    WakelockPlus.disable(); // يجعل الشاشة لا تنطفئ
+  }
 
   highlightVerseFunction() {
     setState(() {
@@ -91,17 +102,15 @@ class _QuranViewPageState extends State<QuranViewPage> {
     highlightVerseFunction();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  WakelockPlus.enable();
-// TODO: implement initState
+    keepScreenOn();
     super.initState();
   }
 
   @override
   void dispose() {
-    // timer.cancel();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-  WakelockPlus.enable();
+    doNotKeepScreenOn();
     super.dispose();
   }
 
@@ -115,10 +124,12 @@ class _QuranViewPageState extends State<QuranViewPage> {
       scrollDirection: Axis.horizontal,
       onPageChanged: (a) {
         setState(() {
-          selectedSpan = "";
+          selectedSpan = ""; //not select ayah when page scrolling
         });
         index = a;
-        // print(index)  ;
+        print("================================================================================")  ;
+        print(index)  ;
+        print("================================================================================")  ;
       },
       controller: _pageController,
       // onPageChanged: _onPageChanged,
