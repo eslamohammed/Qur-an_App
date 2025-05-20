@@ -65,43 +65,48 @@ class _QuranPageState extends State<QuranPage> {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               children: [
-                FormContainerWidget(
-                controller: _searchController,
-                labelText: "Search Qura'n",
-                icon: Icons.email_outlined,
-                onChanged: (value) {
-                  setState(() {
-                    searchQuery = value;
-                  });
-
-                  if (value == "") {
-                    filteredData = widget.suraJsonData;
-                    pageNumbers = [];
-                    setState(() {});
-                  }
-
-                  if (searchQuery.isNotEmpty &&
-                      isInt(searchQuery) &&
-                      toInt(searchQuery) < 605 &&
-                      toInt(searchQuery) > 0) {
-                    pageNumbers.add(toInt(searchQuery));
-                  }
-
-                  if (searchQuery.length > 3 || searchQuery.contains(" ")) {
+                const SizedBox(height: 20,),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0,right: 10),
+                  child: FormContainerWidget(
+                  controller: _searchController,
+                  labelText: "Search Qura'n",
+                  icon: Icons.search,
+                  onChanged: (value) {
                     setState(() {
-                      ayatFiltered = [];
-                      ayatFiltered = searchWords(searchQuery);
-                      filteredData = widget.suraJsonData.where((sura) {
-                        final suraName = sura['englishName'].toLowerCase();
-                        final suraNameTranslated = getSurahNameArabic(sura["number"]);
-
-                        return suraName.contains(searchQuery.toLowerCase()) ||
-                            suraNameTranslated.contains(searchQuery.toLowerCase());
-                      }).toList();
+                      searchQuery = value;
                     });
-                  }
-                },
+                  
+                    if (value == "") {
+                      filteredData = widget.suraJsonData;
+                      pageNumbers = [];
+                      setState(() {});
+                    }
+                  
+                    if (searchQuery.isNotEmpty &&
+                        isInt(searchQuery) &&
+                        toInt(searchQuery) < 605 &&
+                        toInt(searchQuery) > 0) {
+                      pageNumbers.add(toInt(searchQuery));
+                    }
+                  
+                    if (searchQuery.length > 3 || searchQuery.contains(" ")) {
+                      setState(() {
+                        ayatFiltered = [];
+                        ayatFiltered = searchWords(searchQuery);
+                        filteredData = widget.suraJsonData.where((sura) {
+                          final suraName = sura['englishName'].toLowerCase();
+                          final suraNameTranslated = getSurahNameArabic(sura["number"]);
+                  
+                          return suraName.contains(searchQuery.toLowerCase()) ||
+                              suraNameTranslated.contains(searchQuery.toLowerCase());
+                        }).toList();
+                      });
+                    }
+                  },
+                  ),
                 ),
+                const SizedBox(height: 20,),
                 // TextField(
                 //   textDirection: TextDirection.rtl,
                 //   controller: textEditingController,
