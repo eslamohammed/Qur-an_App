@@ -3,17 +3,20 @@
 import 'package:flutter/material.dart';
 // import 'package:quran/dart';
 import 'package:quran/quran.dart';
-import 'package:quran_app/globalhelpers/constants.dart';
 import 'package:quran_app/models/sura.dart';
 import 'package:easy_container/easy_container.dart';
 import 'package:quran_app/views/quran_page.dart';
 import 'package:string_validator/string_validator.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 
 import '../utils/colors_manager.dart';
 import '../widgets/form_container.dart';
 
 class QuranPage extends StatefulWidget {
   var suraJsonData;
+  AudioPlayer player = AudioPlayer();
+  String reciter = "ar.alafasy";
 
   QuranPage({Key? key, required this.suraJsonData}) : super(key: key);
 
@@ -22,7 +25,7 @@ class QuranPage extends StatefulWidget {
 }
 
 class _QuranPageState extends State<QuranPage> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   bool isLoading = true;
 
@@ -196,7 +199,7 @@ class _QuranPageState extends State<QuranPage> {
                               child: Text(
                                 suraNumber.toString(),
                                 style: const TextStyle(
-                                    color: orangeColor, fontSize: 14),
+                                    color: ColorManager.coldGrey, fontSize: 14),
                               ),
                             ),
                           ) //  Material(
@@ -211,8 +214,9 @@ class _QuranPageState extends State<QuranPage> {
                                   suraName,
                                   style: const TextStyle(
                                     // fontWeight: FontWeight.bold,
-                                    color: blueColor,
-                                    fontSize: 14,
+                                    color: Colors.black54,
+                                    // color: ColorManager.deepBlue,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w700, // Text color
                                   ),
                                 ),
@@ -241,7 +245,10 @@ class _QuranPageState extends State<QuranPage> {
                               highlightVerse: "",
                               jsonData: widget.suraJsonData,
                               pageNumber: getPageNumber(
-                                  suraNumberInQuran, 1))));
+                                  suraNumberInQuran, 1)
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -261,7 +268,29 @@ class _QuranPageState extends State<QuranPage> {
                         child: EasyContainer(
                           color:Colors.green.withOpacity(0.05),////
                           borderRadius: 12,
-                          onTap: () async {},
+                          onTap: () async {
+                              print("${ayatFiltered["////////////////////////////////////////////////////"]}");
+                              getAudioURLBySurah(ayatFiltered["result"][index]["surah"],widget.reciter);
+                              String audioUrl = getAudioURLBySurah(
+                                  ayatFiltered["result"][index]["surah"],
+                                  widget.reciter
+                                );
+                                print(audioUrl);
+                                
+                              await widget.player.play(UrlSource(audioUrl));
+                              print("${ayatFiltered["////////////////////////////////////////////////////"]}");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                              builder: (builder) => QuranViewPage(
+                                  shouldHighlightText: false,
+                                  highlightVerse: "",
+                                  jsonData: widget.suraJsonData,
+                                  pageNumber: getPageNumber(ayatFiltered["result"][index]["surah"],ayatFiltered["result"][index]["verse"]),
+                                  ),
+                                ),
+                              );
+                          },
                           child: Text(
                             "سورة ${getSurahNameArabic(ayatFiltered["result"][index]["surah"])} - ${getVerse(ayatFiltered["result"][index]["surah"], ayatFiltered["result"][index]["verse"], verseEndSymbol: true)}",
                             textDirection: TextDirection.rtl,
