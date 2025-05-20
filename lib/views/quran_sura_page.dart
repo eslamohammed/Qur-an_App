@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, must_be_immutable
 
 import 'package:flutter/material.dart';
 // import 'package:quran/dart';
@@ -167,14 +167,15 @@ class _QuranPageState extends State<QuranPage> {
                   ),
                   itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    int suraNumber = index + 1;
+                    print("${filteredData[0]["number"]}");
+                    print("${index + 1}");
                     String suraName = filteredData[index]["englishName"];
                     String suraNameEnglishTranslated =
                         filteredData[index]["englishNameTranslation"];
                     int suraNumberInQuran = filteredData[index]["number"];
-                    String suraNameTranslated =
-                        filteredData[index]["name"].toString();
-                    int ayahCount = getVerseCount(suraNumber);
+                    // String suraNameTranslated =
+                    //     filteredData[index]["name"].toString();
+                    int ayahCount = getVerseCount(filteredData[0]["number"]);
 
                     return Padding(
                       padding: const EdgeInsets.all(0.0),
@@ -192,14 +193,13 @@ class _QuranPageState extends State<QuranPage> {
                             ),
                           ],
                         ),
-                        ////////////////////////////////////////
                         child: ListTile(
                           leading: SizedBox(
                             width: 45,
                             height: 45,
                             child: Center(
                               child: Text(
-                                suraNumber.toString(),
+                                filteredData[0]["number"].toString(),
                                 style: const TextStyle(
                                     color: ColorManager.coldGrey, fontSize: 14),
                               ),
@@ -231,7 +231,9 @@ class _QuranPageState extends State<QuranPage> {
                                 fontSize: 14,
                                 color: Colors.grey.withOpacity(.8)),
                           ),trailing: RichText(
-                            text:  TextSpan(text:                suraNumber.toString(),
+                    // print("${filteredData["number"] + filteredData["name"]}");
+
+                            text:  TextSpan(text:                filteredData[0]["number"].toString(),
                         style: const TextStyle(
                         fontFamily: "arsura",
                         fontSize: 22,color: Colors.black

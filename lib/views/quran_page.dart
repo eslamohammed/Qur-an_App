@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
 
 import 'package:easy_container/easy_container.dart';
@@ -135,7 +137,6 @@ class _QuranViewPageState extends State<QuranViewPage> {
         print("================================================================================")  ;
       },
       controller: _pageController,
-      // onPageChanged: _onPageChanged,
       itemCount: totalPagesCount + 1 /* specify the total number of pages */,
       itemBuilder: (context, index) {
         bool isEvenPage = index.isEven;
