@@ -7,17 +7,19 @@ import 'package:easy_container/easy_container.dart';
 import 'package:quran_app/views/quran_page.dart';
 import 'package:string_validator/string_validator.dart';
 
+import '../widgets/form_container.dart';
+
 class QuranPage extends StatefulWidget {
   var suraJsonData;
 
-  QuranPage({required this.suraJsonData});
+  QuranPage({Key? key, required this.suraJsonData}) : super(key: key);
 
   @override
   State<QuranPage> createState() => _QuranPageState();
 }
 
 class _QuranPageState extends State<QuranPage> {
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
 
   bool isLoading = true;
 
@@ -43,6 +45,12 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   @override
+  void dispose(){
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: quranPagesColor,
@@ -57,58 +65,96 @@ class _QuranPageState extends State<QuranPage> {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               children: [
-                TextField(
-                  textDirection: TextDirection.rtl,
-                  controller: textEditingController,
-                  onChanged: (value) {
+                FormContainerWidget(
+                controller: _searchController,
+                labelText: "Search Qura'n",
+                icon: Icons.email_outlined,
+                onChanged: (value) {
+                  setState(() {
+                    searchQuery = value;
+                  });
+
+                  if (value == "") {
+                    filteredData = widget.suraJsonData;
+                    pageNumbers = [];
+                    setState(() {});
+                  }
+
+                  if (searchQuery.isNotEmpty &&
+                      isInt(searchQuery) &&
+                      toInt(searchQuery) < 605 &&
+                      toInt(searchQuery) > 0) {
+                    pageNumbers.add(toInt(searchQuery));
+                  }
+
+                  if (searchQuery.length > 3 || searchQuery.contains(" ")) {
                     setState(() {
-                      searchQuery = value;
+                      ayatFiltered = [];
+                      ayatFiltered = searchWords(searchQuery);
+                      filteredData = widget.suraJsonData.where((sura) {
+                        final suraName = sura['englishName'].toLowerCase();
+                        final suraNameTranslated = getSurahNameArabic(sura["number"]);
+
+                        return suraName.contains(searchQuery.toLowerCase()) ||
+                            suraNameTranslated.contains(searchQuery.toLowerCase());
+                      }).toList();
                     });
-
-                    if (value == "") {
-                      filteredData = widget.suraJsonData;
-
-                      pageNumbers = [];
-
-                      setState(() {});
-                    }
-
-                    if (searchQuery.isNotEmpty &&
-                        isInt(searchQuery) &&
-                        toInt(searchQuery) < 605 &&
-                        toInt(searchQuery) > 0) {
-                      pageNumbers.add(toInt(searchQuery));
-                    }
-
-                    if (searchQuery.length > 3 ||
-                        searchQuery.toString().contains(" ")) {
-                      setState(() {
-                        ayatFiltered = [];
-
-                        ayatFiltered = searchWords(searchQuery);
-                        filteredData = widget.suraJsonData.where((sura) {
-                          final suraName = sura['englishName'].toLowerCase();
-                          // final suraNameTranslated =
-                          //     sura['name']
-                          //         .toString()
-                          //         .toLowerCase();
-                          final suraNameTranslated =
-                              getSurahNameArabic(sura["number"]);
-
-                          return suraName.contains(searchQuery.toLowerCase()) ||
-                              suraNameTranslated
-                                  .contains(searchQuery.toLowerCase());
-                        }).toList();
-                      });
-                    }
-                  },
-                  style: const TextStyle(color: Color.fromARGB(190, 0, 0, 0)),
-                  decoration: const InputDecoration(
-                    hintText: 'searchQuran',
-                    hintStyle: TextStyle(),
-                    border: InputBorder.none,
-                  ),
+                  }
+                },
                 ),
+                // TextField(
+                //   textDirection: TextDirection.rtl,
+                //   controller: textEditingController,
+                //   onChanged: (value) {
+                //     setState(() {
+                //       searchQuery = value;
+                //     });
+
+                //     if (value == "") {
+                //       filteredData = widget.suraJsonData;
+
+                //       pageNumbers = [];
+
+                //       setState(() {});
+                //     }
+
+                //     if (searchQuery.isNotEmpty &&
+                //         isInt(searchQuery) &&
+                //         toInt(searchQuery) < 605 &&
+                //         toInt(searchQuery) > 0) {
+                //       pageNumbers.add(toInt(searchQuery));
+                //     }
+
+                //     if (searchQuery.length > 3 ||
+                //         searchQuery.toString().contains(" ")) {
+                //       setState(() {
+                //         ayatFiltered = [];
+
+                //         ayatFiltered = searchWords(searchQuery);
+                //         filteredData = widget.suraJsonData.where((sura) {
+                //           final suraName = sura['englishName'].toLowerCase();
+                //           // final suraNameTranslated =
+                //           //     sura['name']
+                //           //         .toString()
+                //           //         .toLowerCase();
+                //           final suraNameTranslated =
+                //               getSurahNameArabic(sura["number"]);
+
+                //           return suraName.contains(searchQuery.toLowerCase()) ||
+                //               suraNameTranslated
+                //                   .contains(searchQuery.toLowerCase());
+                //         }).toList();
+                //       });
+                //     }
+                //   },
+                //   style: const TextStyle(color: Color.fromARGB(190, 0, 0, 0)),
+                //   decoration: const InputDecoration(
+                //     hintText: 'searchQuran',
+                //     hintStyle: TextStyle(),
+                //     border: InputBorder.none,
+                //   ),
+                // ),
+                
                 if (pageNumbers.isNotEmpty)
                   Container(
                     child: const Padding(

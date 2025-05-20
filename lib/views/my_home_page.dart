@@ -13,8 +13,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var widgejsonData;
+  var widgejsonData; //to recive data and passing to next widget
 
+  /// func to load سور القران  ====> step 1
   loadJsonAsset() async {
     final String jsonString =
         await rootBundle.loadString('assets/json/surahs.json');
@@ -26,9 +27,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    loadJsonAsset();
+    loadJsonAsset();  /// step ====> 2 calling in init state
 
-    // TODO: implement initState
     super.initState();
   }
 
@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (builder) => QuranPage(
-                            suraJsonData: widgejsonData,
+                            suraJsonData: widgejsonData, ///here we send data to qura'n page
                           )));
             },
             child: const Text("Go To Quran Page")),
