@@ -17,6 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_screenutil: ^5.9.0
   wakelock_plus: ^1.1.1
+  audioplayers: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +39,12 @@ flutter:
     - assets/json/surahs.json
     - assets/images/
   fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 700
+          
     - family: arsura
       fonts:
         - asset: assets\fonts\arsura.ttf
