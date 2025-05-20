@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quran_app/utils/colors_manager.dart';
 import 'package:quran_app/views/my_home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async{
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    return ScreenUtilInit(
-        designSize: const Size(392.72727272727275, 800.7272727272727),
+        designSize: const Size(392.72, 800.72),
         builder: (context, child) =>  const MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Quran',
