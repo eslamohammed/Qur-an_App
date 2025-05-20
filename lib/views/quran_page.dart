@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/quran.dart';
 import 'package:quran_app/globalhelpers/constants.dart';
+import 'package:quran_app/utils/colors_manager.dart';
 import 'package:quran_app/widgets/basmallah.dart';
 import 'package:quran_app/widgets/header_widget.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -102,7 +103,8 @@ class _QuranViewPageState extends State<QuranViewPage> {
     highlightVerseFunction();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    keepScreenOn();
+    // keepScreenOn();
+    WakelockPlus.enable(); // يجعل الشاشة لا تنطفئ
     super.initState();
   }
 
@@ -110,7 +112,8 @@ class _QuranViewPageState extends State<QuranViewPage> {
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-    doNotKeepScreenOn();
+    // doNotKeepScreenOn();
+    WakelockPlus.disable(); // يلغي جعل الشاشة تنطفئ
     super.dispose();
   }
 
@@ -119,7 +122,7 @@ class _QuranViewPageState extends State<QuranViewPage> {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-        body: PageView.builder(
+      body: PageView.builder(
       reverse: true,
       scrollDirection: Axis.horizontal,
       onPageChanged: (a) {
@@ -138,22 +141,19 @@ class _QuranViewPageState extends State<QuranViewPage> {
         bool isEvenPage = index.isEven;
 
         if (index == 0) {
-          return Container(
-            color: const Color(0xffFFFCE7),
-            child: Image.asset(
-              "assets/images/jpg",
-              fit: BoxFit.fill,
-            ),
+          return Image.asset(
+            "assets/images/fp.png",
+            fit: BoxFit.fill,
           );
         }
 
         return Container(
           decoration: const BoxDecoration(
-            color: quranPagesColor,
+            color: ColorManager.lilacPetals,
           ),
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(right: 12.0, left: 12),
@@ -189,7 +189,7 @@ class _QuranViewPageState extends State<QuranViewPage> {
                             ),
                             EasyContainer(
                               borderRadius: 12,
-                              color: Colors.orange.withOpacity(.5),
+                              color: ColorManager.lilacPetalsDark,
                               showBorder: true,
                               height: 20,
                               width: 120,
@@ -197,7 +197,7 @@ class _QuranViewPageState extends State<QuranViewPage> {
                               margin: 0,
                               child: Center(
                                 child: Text(
-                                  "${"page"} $index ",
+                                  "${"Page"}  $index ",
                                   style: const TextStyle(
                                     fontFamily: 'aldahabi',
                                     fontSize: 12,
@@ -211,7 +211,9 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        //setteng icon finctionality will be add later 
+                                      },
                                       icon: const Icon(
                                         Icons.settings,
                                         size: 24,
@@ -229,173 +231,173 @@ class _QuranViewPageState extends State<QuranViewPage> {
                       const SizedBox(
                         height: 30,
                       ),
-              Directionality(
-                                              textDirection:
-                                                  m.TextDirection.rtl,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(0.0),
-                                                child: SizedBox(
-                                                  width: double.infinity,
-                                                  child: RichText(
-                                                    key:
-                                                        richTextKeys[index - 1],
-                                                    textDirection:
-                                                        m.TextDirection.rtl,
-                                                    textAlign: (index == 1 ||
-                                                            index == 2 ||
-                                                            index > 570)
-                                                        ? TextAlign.center
-                                                        : TextAlign.center,
-                                                    softWrap: true,
-                                                    locale: const Locale("ar"),
-                                                    text: TextSpan(
-                                                      style: TextStyle(
-                                                        color: m.Colors.black,
-                                                        fontSize: 23.sp
-                                                            .toDouble(),
-                                                        
-                                                      ),
-                                                      children:getPageData(index)
-                                                          .expand((e) {
-                                                        List<InlineSpan> spans =
-                                                            [];
-                                                        for (var i = e["start"];
-                                                            i <= e["end"];
-                                                            i++) {
-                                                          // Header
-                                                          if (i == 1) {
-                                                            spans
-                                                                .add(WidgetSpan(
-                                                              child: HeaderWidget(
-                                                                  e: e,
-                                                                  jsonData: widget
-                                                                      .jsonData),
-                                                            ));
-                                                            if (index != 187 &&
-                                                                index != 1) {
-                                                              spans.add(
-                                                                  WidgetSpan(
-                                                                child: Basmallah(
-                                                                    index: 0),
-                                                              ));
-                                                            }
-                                                            if (index == 187) {
-                                                              spans.add(
-                                                                  WidgetSpan(
-                                                                child:
-                                                                    Container(
-                                                                  height: 10.h,
-                                                                ),
-                                                              ));
-                                                            }
-                                                          }
+                      Directionality(
+                        textDirection:
+                            m.TextDirection.rtl,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.all(0.0),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: RichText(
+                              key:
+                                  richTextKeys[index - 1],
+                              textDirection:
+                                  m.TextDirection.rtl,
+                              textAlign: (index == 1 ||
+                                      index == 2 ||
+                                      index > 570)
+                                  ? TextAlign.center
+                                  : TextAlign.center,
+                              softWrap: true,
+                              locale: const Locale("ar"),
+                              text: TextSpan(
+                                style: TextStyle(
+                                  color: m.Colors.black,
+                                  fontSize: 23.sp
+                                      .toDouble(),
+                                  
+                                ),
+                                children:getPageData(index)
+                                    .expand((e) {
+                                  List<InlineSpan> spans =
+                                      [];
+                                  for (var i = e["start"];
+                                      i <= e["end"];
+                                      i++) {
+                                    // Header
+                                    if (i == 1) {
+                                      spans
+                                          .add(WidgetSpan(
+                                        child: HeaderWidget(
+                                            e: e,
+                                            jsonData: widget
+                                                .jsonData),
+                                      ));
+                                      if (index != 187 &&
+                                          index != 1) {
+                                        spans.add(
+                                            WidgetSpan(
+                                          child: Basmallah(
+                                              index: 0),
+                                        ));
+                                      }
+                                      if (index == 187) {
+                                        spans.add(
+                                            WidgetSpan(
+                                          child:
+                                              Container(
+                                            height: 10.h,
+                                          ),
+                                        ));
+                                      }
+                                    }
 
-                                                          // Verses
-                                                          spans.add(TextSpan(
-                                                            recognizer:
-                                                                LongPressGestureRecognizer()
-                                                                  ..onLongPress =
-                                                                      () {
-                                                                    // showAyahOptionsSheet(
-                                                                    //     index,
-                                                                    //     e["surah"],
-                                                                    //     i);
-                                                                    print(
-                                                                        "longpressed");
-                                                                  }
-                                                                  ..onLongPressDown =
-                                                                      (details) {
-                                                                    setState(
-                                                                        () {
-                                                                      selectedSpan =
-                                                                          " ${e["surah"]}$i";
-                                                                    });
-                                                                  }
-                                                                  ..onLongPressUp =
-                                                                      () {
-                                                                    setState(
-                                                                        () {
-                                                                      selectedSpan =
-                                                                          "";
-                                                                    });
-                                                                    print(
-                                                                        "finished long press");
-                                                                  }
-                                                                  ..onLongPressCancel =
-                                                                      () =>
-                                                                          setState(
-                                                                              () {
-                                                                            selectedSpan =
-                                                                                "";
-                                                                          }),
-                                                            text: i ==
-                                                                    e["start"]
-                                                                ? "${getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(0, 1)}\u200A${getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(1)}"
-                                                                : getVerseQCF(
-                                                                        e[
-                                                                            "surah"],
-                                                                        i)
-                                                                    .replaceAll(
-                                                                        ' ',
-                                                                        ''),
-                                                            //  i == e["start"]
-                                                            // ? "${getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(0, 1)}\u200A${getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(1).substring(0,  getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(1).length - 1)}"
-                                                            // :
-                                                            // getVerseQCF(e["surah"], i).replaceAll(' ', '').substring(0,  getVerseQCF(e["surah"], i).replaceAll(' ', '').length - 1),
-                                                            style: TextStyle(
-                                                              color: Colors.black,
-                                                              height: (index ==
-                                                                          1 ||
-                                                                      index ==
-                                                                          2)
-                                                                  ? 2.h
-                                                                  : 1.95.h,
-                                                              letterSpacing:
-                                                                  0.w,
-                                                              wordSpacing: 0,
-                                                              fontFamily:
-                                                                  "QCF_P${index.toString().padLeft(3, "0")}",
-                                                              fontSize: index ==
-                                                                          1 ||
-                                                                      index == 2
-                                                                  ? 28.sp
-                                                                  : index == 145 ||
-                                                                          index ==
-                                                                              201
-                                                                      ? index == 532 ||
-                                                                              index ==
-                                                                                  533
-                                                                          ? 22.5
-                                                                              .sp
-                                                                          : 22.4
-                                                                              .sp
-                                                                      : 23.1.sp,
-                                                              backgroundColor:  Colors.transparent,
-                                                            ),
-                                                            children: const <TextSpan>[
-                                                              // TextSpan(
-                                                              //   text: getVerseQCF(e["surah"], i).substring(getVerseQCF(e["surah"], i).length - 1),
-                                                              //   style:  TextStyle(
-                                                              //     color: isVerseStarred(
-                                                              //                                                     e[
-                                                              //                                                         "surah"],
-                                                              //                                                     i)
-                                                              //                                                 ? Colors
-                                                              //                                                     .amber
-                                                              //                                                 : secondaryColors[getValue("quranPageolorsIndex")] // Change color here
-                                                              //   ),
-                                                              // ),
-                                                            ],
-                                                          ));
-                                                        }
-                                                        return spans;
-                                                      }).toList(),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ))
-                                          ],
+                                    // Verses
+                                    spans.add(TextSpan(
+                                      recognizer:
+                                          LongPressGestureRecognizer()
+                                            ..onLongPress =
+                                                () {
+                                                  // showAyahOptionsSheet(
+                                                  // index,
+                                                  // e["surah"],
+                                                  // i);
+                                              print(
+                                                  "longpressed");
+                                            }
+                                            ..onLongPressDown =
+                                                (details) {
+                                              setState(
+                                                  () {
+                                                selectedSpan =
+                                                    " ${e["surah"]}$i";
+                                              });
+                                            }
+                                            ..onLongPressUp =
+                                                () {
+                                              setState(
+                                                  () {
+                                                selectedSpan =
+                                                    "";
+                                              });
+                                              print(
+                                                  "finished long press");
+                                            }
+                                            ..onLongPressCancel =
+                                                () =>
+                                                    setState(
+                                                        () {
+                                                      selectedSpan =
+                                                          "";
+                                                    }),
+                                      text: i ==
+                                              e["start"]
+                                          ? "${getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(0, 1)}\u200A${getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(1)}"
+                                          : getVerseQCF(
+                                                  e[
+                                                      "surah"],
+                                                  i)
+                                              .replaceAll(
+                                                  ' ',
+                                                  ''),
+                                      //  i == e["start"]
+                                      // ? "${getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(0, 1)}\u200A${getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(1).substring(0,  getVerseQCF(e["surah"], i).replaceAll(" ", "").substring(1).length - 1)}"
+                                      // :
+                                      // getVerseQCF(e["surah"], i).replaceAll(' ', '').substring(0,  getVerseQCF(e["surah"], i).replaceAll(' ', '').length - 1),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        height: (index ==
+                                                    1 ||
+                                                index ==
+                                                    2)
+                                            ? 2.h
+                                            : 1.95.h,
+                                        letterSpacing:
+                                            0.w,
+                                        wordSpacing: 0,
+                                        fontFamily:
+                                            "QCF_P${index.toString().padLeft(3, "0")}",
+                                        fontSize: index ==
+                                                    1 ||
+                                                index == 2
+                                            ? 28.sp
+                                            : index == 145 ||
+                                                    index ==
+                                                        201
+                                                ? index == 532 ||
+                                                        index ==
+                                                            533
+                                                    ? 22.5
+                                                        .sp
+                                                    : 22.4
+                                                        .sp
+                                                : 23.1.sp,
+                                        backgroundColor:  Colors.transparent,
+                                      ),
+                                      children: const <TextSpan>[
+                                        // TextSpan(
+                                        //   text: getVerseQCF(e["surah"], i).substring(getVerseQCF(e["surah"], i).length - 1),
+                                        //   style:  TextStyle(
+                                        //     color: isVerseStarred(
+                                        //                                                     e[
+                                        //                                                         "surah"],
+                                        //                                                     i)
+                                        //                                                 ? Colors
+                                        //                                                     .amber
+                                        //                                                 : secondaryColors[getValue("quranPageolorsIndex")] // Change color here
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ));
+                                  }
+                                  return spans;
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ))
+                    ],
                   ),
                 ),
               ),

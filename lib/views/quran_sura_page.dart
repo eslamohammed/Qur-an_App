@@ -9,6 +9,7 @@ import 'package:easy_container/easy_container.dart';
 import 'package:quran_app/views/quran_page.dart';
 import 'package:string_validator/string_validator.dart';
 
+import '../utils/colors_manager.dart';
 import '../widgets/form_container.dart';
 
 class QuranPage extends StatefulWidget {
@@ -55,9 +56,12 @@ class _QuranPageState extends State<QuranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: quranPagesColor,
+      backgroundColor:  ColorManager.lilacPetals,
       appBar: AppBar(
-        title: const Text("Quran Page"),
+        backgroundColor: ColorManager.lilacPetals,
+        title: const Text("Quran Page",style: TextStyle(fontSize: 25,),),
+        centerTitle: true,
+        
       ),
       body: isLoading
           ? const Center(
@@ -141,7 +145,7 @@ class _QuranPageState extends State<QuranPage> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     separatorBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Divider(
                             color: Colors.grey.withOpacity(.5),
                           ),
@@ -151,9 +155,9 @@ class _QuranPageState extends State<QuranPage> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   separatorBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.only(left: 20,right: 20),
                     child: Divider(
-                      color: Colors.grey.withOpacity(.5),
+                      color: Colors.grey.withOpacity(0.3),
                     ),
                   ),
                   itemCount: filteredData.length,
@@ -172,12 +176,12 @@ class _QuranPageState extends State<QuranPage> {
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
-                          color: Colors.transparent,
+                          color: ColorManager.lilacPetals,
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.teal.shade200),
+                          border: Border.all(color:ColorManager.babyBlue),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.green.withOpacity(0.075),
+                              color: Colors.green.withOpacity(0.2),
                               blurRadius: 6,
                               offset: const Offset(0, 4),
                             ),
