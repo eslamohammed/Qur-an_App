@@ -14,15 +14,17 @@ import '../utils/colors_manager.dart';
 import '../widgets/form_container.dart';
 
 class QuranPage extends StatefulWidget {
+  
   var suraJsonData;
-  AudioPlayer player = AudioPlayer();
-  String reciter = "ar.alafasy";
 
   QuranPage({Key? key, required this.suraJsonData}) : super(key: key);
-
+  
   @override
   State<QuranPage> createState() => _QuranPageState();
 }
+  AudioPlayer player = AudioPlayer();
+  String reciter = "ar.alafasy";
+
 
 class _QuranPageState extends State<QuranPage> {
   final TextEditingController _searchController = TextEditingController();
@@ -269,16 +271,7 @@ class _QuranPageState extends State<QuranPage> {
                           color:Colors.green.withOpacity(0.05),////
                           borderRadius: 12,
                           onTap: () async {
-                              print("${ayatFiltered["////////////////////////////////////////////////////"]}");
-                              getAudioURLBySurah(ayatFiltered["result"][index]["surah"],widget.reciter);
-                              String audioUrl = getAudioURLBySurah(
-                                  ayatFiltered["result"][index]["surah"],
-                                  widget.reciter
-                                );
-                                print(audioUrl);
-                                
-                              await widget.player.play(UrlSource(audioUrl));
-                              print("${ayatFiltered["////////////////////////////////////////////////////"]}");
+                            
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -290,6 +283,17 @@ class _QuranPageState extends State<QuranPage> {
                                   ),
                                 ),
                               );
+                              ///Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr heeeeeeeeeeeeeeeereeee
+                              // print("${ayatFiltered["////////////////////////////////////////////////////"]}");
+                              // getAudioURLBySurah(ayatFiltered["result"][index]["surah"],reciter);
+                              // String audioUrl = getAudioURLBySurah(
+                              //     ayatFiltered["result"][index]["surah"],
+                              //     reciter
+                              //   );
+                              //   print(audioUrl);
+                                
+                              // await player.play(UrlSource(audioUrl));
+                              // print("${ayatFiltered["////////////////////////////////////////////////////"]}");
                           },
                           child: Text(
                             "سورة ${getSurahNameArabic(ayatFiltered["result"][index]["surah"])} - ${getVerse(ayatFiltered["result"][index]["surah"], ayatFiltered["result"][index]["verse"], verseEndSymbol: true)}",
