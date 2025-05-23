@@ -171,8 +171,7 @@ class _QuranPageState extends State<QuranPage> {
                     String suraNameEnglishTranslated =
                         filteredData[index]["englishNameTranslation"];
                     int suraNumberInQuran = filteredData[index]["number"];
-                    int ayahCount = getVerseCount(filteredData[0]["number"]);
-
+                    int ayahCount = getVerseCount(filteredData[index]["number"]);
                     return Padding(
                       padding: const EdgeInsets.all(0.0),
                       child: Container(
