@@ -167,14 +167,10 @@ class _QuranPageState extends State<QuranPage> {
                   ),
                   itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    print("${filteredData[0]["number"]}");
-                    print("${index + 1}");
                     String suraName = filteredData[index]["englishName"];
                     String suraNameEnglishTranslated =
                         filteredData[index]["englishNameTranslation"];
                     int suraNumberInQuran = filteredData[index]["number"];
-                    // String suraNameTranslated =
-                    //     filteredData[index]["name"].toString();
                     int ayahCount = getVerseCount(filteredData[0]["number"]);
 
                     return Padding(
@@ -199,7 +195,7 @@ class _QuranPageState extends State<QuranPage> {
                             height: 45,
                             child: Center(
                               child: Text(
-                                filteredData[0]["number"].toString(),
+                                filteredData[index]["number"].toString(),
                                 style: const TextStyle(
                                     color: ColorManager.coldGrey, fontSize: 14),
                               ),
@@ -215,9 +211,7 @@ class _QuranPageState extends State<QuranPage> {
                                 Text(
                                   suraName,
                                   style: const TextStyle(
-                                    // fontWeight: FontWeight.bold,
                                     color: Colors.black54,
-                                    // color: ColorManager.deepBlue,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700, // Text color
                                   ),
@@ -231,9 +225,7 @@ class _QuranPageState extends State<QuranPage> {
                                 fontSize: 14,
                                 color: Colors.grey.withOpacity(.8)),
                           ),trailing: RichText(
-                    // print("${filteredData["number"] + filteredData["name"]}");
-
-                            text:  TextSpan(text:                filteredData[0]["number"].toString(),
+                            text:  TextSpan(text:                filteredData[index]["number"].toString(),
                         style: const TextStyle(
                         fontFamily: "arsura",
                         fontSize: 22,color: Colors.black
@@ -285,18 +277,7 @@ class _QuranPageState extends State<QuranPage> {
                                   ),
                                 ),
                               );
-                              ///Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr heeeeeeeeeeeeeeeereeee
-                              // print("${ayatFiltered["////////////////////////////////////////////////////"]}");
-                              // getAudioURLBySurah(ayatFiltered["result"][index]["surah"],reciter);
-                              // String audioUrl = getAudioURLBySurah(
-                              //     ayatFiltered["result"][index]["surah"],
-                              //     reciter
-                              //   );
-                              //   print(audioUrl);
-                                
-                              // await player.play(UrlSource(audioUrl));
-                              // print("${ayatFiltered["////////////////////////////////////////////////////"]}");
-                          },
+                            },
                           child: Text(
                             "سورة ${getSurahNameArabic(ayatFiltered["result"][index]["surah"])} - ${getVerse(ayatFiltered["result"][index]["surah"], ayatFiltered["result"][index]["verse"], verseEndSymbol: true)}",
                             textDirection: TextDirection.rtl,
