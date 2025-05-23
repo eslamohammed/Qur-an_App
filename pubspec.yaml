@@ -39,12 +39,6 @@ flutter:
     - assets/json/surahs.json
     - assets/images/
   fonts:
-    - family: Cairo
-      fonts:
-        - asset: assets/fonts/Cairo-Regular.ttf
-        - asset: assets/fonts/Cairo-Bold.ttf
-          weight: 700
-          
     - family: arsura
       fonts:
         - asset: assets\fonts\arsura.ttf
