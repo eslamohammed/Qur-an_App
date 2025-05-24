@@ -12,7 +12,6 @@ import 'package:quran_app/screens/show_ayah_page.dart';
 import 'package:quran_app/utils/colors_manager.dart';
 import 'package:quran_app/widgets/basmallah.dart';
 import 'package:quran_app/widgets/header_widget.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../widgets/Toast.dart';
 
@@ -55,15 +54,6 @@ class _QuranViewPageState extends State<QuranViewPage> {
   late Timer timer;
   String selectedSpan = ""; // select ayah
 
-
-  void keepScreenOn() {
-    WakelockPlus.enable(); // يجعل الشاشة لا تنطفئ
-  }
-
-  
-  void doNotKeepScreenOn() {
-    WakelockPlus.disable(); // يجعل الشاشة لا تنطفئ
-  }
 
   highlightVerseFunction() {
     setState(() {
@@ -108,17 +98,12 @@ class _QuranViewPageState extends State<QuranViewPage> {
     highlightVerseFunction();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    // keepScreenOn();
-    WakelockPlus.enable(); // يجعل الشاشة لا تنطفئ
     super.initState();
   }
 
   @override
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
-    // doNotKeepScreenOn();
-    WakelockPlus.disable(); // يلغي جعل الشاشة تنطفئ
     super.dispose();
   }
 

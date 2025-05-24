@@ -8,7 +8,7 @@ environment:
   sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
-  audioplayers: ^5.2.1
+  audioplayers: ^6.4.0
   cupertino_icons: ^1.0.2
   easy_container: ^1.0.4
   flutter:
@@ -19,7 +19,7 @@ dependencies:
   quran:
     path: ./quran-1.2.2
   string_validator: ^1.1.0
-  wakelock_plus: ^1.1.1
+#  wakelock_plus: ^1.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

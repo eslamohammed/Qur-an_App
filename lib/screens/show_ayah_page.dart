@@ -4,23 +4,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/quran.dart';
 
-import 'package:wakelock_plus/wakelock_plus.dart';
-
 import '../services/network_handler.dart' as TafsirService;
 
 // ignore: must_be_immutable
 class ShowAyah extends StatefulWidget {
   int pageNumber;
-  var jsonData;  //for surah
+  var jsonData; //for surah
   int ayahNumber;
   var suraNumber;
-   ShowAyah({
+
+  ShowAyah({
     Key? key,
     required this.pageNumber,
     required this.ayahNumber,
     required this.suraNumber,
     required this.jsonData,
-  
   }) : super(key: key);
 
   @override
@@ -29,6 +27,7 @@ class ShowAyah extends StatefulWidget {
 
 class _ShowAyahState extends State<ShowAyah> {
   int index = 0;
+
   // late PageController _pageController;
   /// get index of page number from constructor
   setIndex() {
@@ -40,8 +39,9 @@ class _ShowAyahState extends State<ShowAyah> {
   String tafsir = "";
 
   void _loadTafsir() async {
-  tafsir = await TafsirService.fetchTafsir(widget.suraNumber, widget.ayahNumber);
-  setState(() {}); // لتحديث الواجهة بعد جلب التفسير
+    tafsir =
+        await TafsirService.fetchTafsir(widget.suraNumber, widget.ayahNumber);
+    setState(() {}); // لتحديث الواجهة بعد جلب التفسير
   }
 
   @override
@@ -51,14 +51,12 @@ class _ShowAyahState extends State<ShowAyah> {
     // _pageController = PageController(initialPage: index);
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    WakelockPlus.enable(); // يجعل الشاشة لا تنطفئ
     super.initState();
   }
 
   @override
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    WakelockPlus.disable(); // يلغي جعل الشاشة تنطفئ
     super.dispose();
   }
 
@@ -67,9 +65,9 @@ class _ShowAyahState extends State<ShowAyah> {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-    resizeToAvoidBottomInset: false,
-    backgroundColor: Colors.white,
-    body: SafeArea(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -91,9 +89,8 @@ class _ShowAyahState extends State<ShowAyah> {
                                 size: 24,
                               )),
                           Text(
-                              widget.jsonData[getPageData(index)[0]
-                                      ["surah"] -
-                                  1]["name"],
+                              widget.jsonData[
+                                  getPageData(index)[0]["surah"] - 1]["name"],
                               style: const TextStyle(
                                   fontFamily: "Taha", fontSize: 14)),
                         ],
@@ -106,7 +103,7 @@ class _ShowAyahState extends State<ShowAyah> {
                         children: [
                           IconButton(
                               onPressed: () {
-                                //setteng icon finctionality will be add later 
+                                //setteng icon finctionality will be add later
                               },
                               icon: const Icon(
                                 Icons.settings,
@@ -118,16 +115,13 @@ class _ShowAyahState extends State<ShowAyah> {
                   ],
                 ),
               ),
-              Center(
-
-              ),
+              const Center(),
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: EasyContainer(
-                  color:Colors.green.withOpacity(0.05),////
+                  color: Colors.green.withOpacity(0.05), ////
                   borderRadius: 12,
                   onTap: () async {
-                    
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
@@ -140,11 +134,12 @@ class _ShowAyahState extends State<ShowAyah> {
                     //       ),
                     //     ),
                     //   );
-                    },
+                  },
                   child: Text(
-                    "${getVerse(widget.suraNumber, widget.ayahNumber, verseEndSymbol: true)}",
+                    getVerse(widget.suraNumber, widget.ayahNumber,
+                        verseEndSymbol: true),
                     textDirection: TextDirection.rtl,
-                    style:  TextStyle(
+                    style: TextStyle(
                         color: Colors.black, fontSize: 23.sp.toDouble()),
                   ),
                 ),
@@ -152,15 +147,13 @@ class _ShowAyahState extends State<ShowAyah> {
               Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: EasyContainer(
-                  color:Colors.brown.withOpacity(0.05),////
+                  color: Colors.brown.withOpacity(0.05), ////
                   borderRadius: 12,
-                  onTap: () async {
-                    
-                    },
+                  onTap: () async {},
                   child: Text(
-                    "سورة : ${getSurahNameArabic(widget.suraNumber)}\nالايه : ${widget.ayahNumber}\nوهي : سورة ${(getPlaceOfRevelation(widget.suraNumber)=='Makkah') ? 'مكية':'مدنية' } \nالتفسير: ${tafsir == '' ? "فشل في جلب التفسير // افحص الاتصال" : tafsir}",
+                    "سورة : ${getSurahNameArabic(widget.suraNumber)}\nالايه : ${widget.ayahNumber}\nوهي : سورة ${(getPlaceOfRevelation(widget.suraNumber) == 'Makkah') ? 'مكية' : 'مدنية'} \nالتفسير: ${tafsir == '' ? "فشل في جلب التفسير // افحص الاتصال" : tafsir}",
                     textDirection: TextDirection.rtl,
-                    style:  TextStyle(
+                    style: TextStyle(
                         color: Colors.black, fontSize: 23.sp.toDouble()),
                   ),
                 ),
