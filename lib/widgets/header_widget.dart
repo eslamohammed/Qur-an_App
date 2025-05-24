@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import 'package:quran/quran.dart';
@@ -7,7 +9,7 @@ class HeaderWidget extends StatelessWidget {
   var jsonData;
 
   HeaderWidget(
-      {required this.e, required this.jsonData, });
+      {Key? key, required this.e, required this.jsonData, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
