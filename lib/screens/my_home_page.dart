@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quran_app/globalhelpers/constants.dart';
 import 'package:quran_app/utils/colors_manager.dart';
-import 'package:quran_app/views/quran_sura_page.dart';
+import 'package:quran_app/screens/quran_sura_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage();

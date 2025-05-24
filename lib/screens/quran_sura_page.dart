@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
 import 'package:quran_app/models/sura.dart';
 import 'package:easy_container/easy_container.dart';
-import 'package:quran_app/views/quran_page.dart';
+import 'package:quran_app/screens/quran_page.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:audioplayers/audioplayers.dart';
 
