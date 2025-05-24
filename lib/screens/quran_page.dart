@@ -1,4 +1,3 @@
-// ignore_for_file: unused_local_variable
 
 import 'dart:async';
 
@@ -9,22 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/quran.dart';
+import 'package:quran_app/screens/show_ayah_page.dart';
 import 'package:quran_app/utils/colors_manager.dart';
 import 'package:quran_app/widgets/basmallah.dart';
 import 'package:quran_app/widgets/header_widget.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+
+import '../widgets/Toast.dart';
 
 class QuranViewPage extends StatefulWidget {
   int pageNumber;
   var jsonData;  //for surah
   var shouldHighlightText;
   var highlightVerse;
+  var suraJsonData;
   QuranViewPage({
     Key? key,
     required this.pageNumber,
     required this.jsonData,
     required this.shouldHighlightText,
     required this.highlightVerse,
+    required this.suraJsonData,
   }) : super(key: key);
 
   @override
@@ -261,9 +265,7 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                     .expand((e) {
                                   List<InlineSpan> spans =
                                       [];
-                                  for (var i = e["start"];
-                                      i <= e["end"];
-                                      i++) {
+                                  for (var i = e["start"];i <= e["end"];i++) {
                                     // Header
                                     if (i == 1) {
                                       spans
@@ -298,12 +300,34 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                           LongPressGestureRecognizer()
                                             ..onLongPress =
                                                 () {
-                                                  // showAyahOptionsSheet(
-                                                  // index,
-                                                  // e["surah"],
-                                                  // i);
-                                              print(
-                                                  "longpressed");
+
+                                              //     // showAyahOptionsSheet(
+                                              //     // index,
+                                              //     // e["surah"],
+                                              //     // i);
+                                              // print("longpressed");
+                                              // print("page Number : ${index}");
+                                              // print("index : //////////////////////////////////");
+                                              // print("Sura Number : ${e["surah"]}");
+                                              // print(" e surah : ///////////////////////////////");
+                                              // print("Ayah Number : ${i}");
+                                              // print("i : //////////////////////////////////////");
+                                              setState(() {
+                                                shouldHighlightText = true; 
+                                              });
+                                               Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (builder) => ShowAyah(
+                                                          pageNumber: index,
+                                                          suraNumber: e["surah"],
+                                                          ayahNumber: i,
+                                                          jsonData: widget.suraJsonData,
+                                                            // pageNumber: getPageNumber(
+                                                            //     suraNumberInQuran, 1)
+                                                              ),
+                                                            ),
+                                                          );
                                             }
                                             ..onLongPressDown =
                                                 (details) {

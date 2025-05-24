@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:quran_app/globalhelpers/constants.dart';
 import 'package:quran_app/utils/colors_manager.dart';
 import 'package:quran_app/screens/quran_sura_page.dart';
 
@@ -47,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             suraJsonData: widgejsonData, ///here we send data to qura'n page
                           )));
             },
-            child: const Text("Go To Quran Page")),
+            child: const Text("Go To Quran Page : Press Here")),
       ),
     );
   }

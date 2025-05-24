@@ -240,7 +240,8 @@ class _QuranPageState extends State<QuranPage> {
                               highlightVerse: "",
                               jsonData: widget.suraJsonData,
                               pageNumber: getPageNumber(
-                                  suraNumberInQuran, 1)
+                                  suraNumberInQuran, 1),
+                              suraJsonData:widget.suraJsonData,
                                 ),
                               ),
                             );
@@ -273,6 +274,7 @@ class _QuranPageState extends State<QuranPage> {
                                   highlightVerse: "",
                                   jsonData: widget.suraJsonData,
                                   pageNumber: getPageNumber(ayatFiltered["result"][index]["surah"],ayatFiltered["result"][index]["verse"]),
+                                  suraJsonData:widget.suraJsonData,
                                   ),
                                 ),
                               );
