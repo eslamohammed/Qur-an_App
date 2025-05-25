@@ -1,7 +1,9 @@
 
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:easy_container/easy_container.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/material.dart';
@@ -34,6 +36,9 @@ class QuranViewPage extends StatefulWidget {
   State<QuranViewPage> createState() => _QuranViewPageState();
 }
 
+  AudioPlayer player = AudioPlayer();
+  String reciter = "ar.alafasy";
+
 class _QuranViewPageState extends State<QuranViewPage> {
   var highlightVerse;
   var shouldHighlightText;
@@ -42,6 +47,10 @@ class _QuranViewPageState extends State<QuranViewPage> {
     (_) => GlobalKey(),
   );
 
+  Future<void> play(String url) async {
+    await player.play(UrlSource(url));
+    print("////////////////////////$url");
+  }
   /// get index of page number from constructor
   setIndex() {
     setState(() {
@@ -201,7 +210,23 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                 children: [
                                   IconButton(
                                       onPressed: () {
+                                        //audio icon finctionality will be add later 
+                                        play(getAudioURLByVerseNumber(2, reciter));
+                                        // play("https://quran.com/1");
+                                      
+                                        //  play(getAudioURLBySurah(1, "ar.minshawi"));
+                                        //   if (kDebugMode) {
+                                        //     print(getAudioURLBySurah(5, reciter));
+                                        //   }
+                                      },
+                                      icon: const Icon(
+                                        Icons.audiotrack_outlined,
+                                        size: 24,
+                                      )),
+                                      IconButton(
+                                      onPressed: () {
                                         //setteng icon finctionality will be add later 
+                                        showToast("Comming soon",isError: false);
                                       },
                                       icon: const Icon(
                                         Icons.settings,
@@ -217,9 +242,6 @@ class _QuranViewPageState extends State<QuranViewPage> {
                         SizedBox(
                           height: (screenSize.height * .15),
                         ),
-                      const SizedBox(
-                        height: 30,
-                      ),
                       Directionality(
                         textDirection:
                             m.TextDirection.rtl,
@@ -299,6 +321,8 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                               // print("i : //////////////////////////////////////");
                                               setState(() {
                                                 shouldHighlightText = true; 
+                                                selectedSpan =
+                                                    " ${e["surah"]}$i";
                                               });
                                                Navigator.push(
                                                     context,
