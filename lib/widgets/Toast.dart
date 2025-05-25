@@ -9,7 +9,7 @@ void showToast(String label, {bool isError = false}) {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: isError ? ColorManager.error : ColorManager.turquoise,
-      textColor: isError ? ColorManager.white : ColorManager.deepBlue,
+      backgroundColor: isError ? ColorManager.error : ColorManager.grey2,
+      textColor: isError ? ColorManager.white : ColorManager.water,
       fontSize: 16.0);
 }

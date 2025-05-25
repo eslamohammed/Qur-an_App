@@ -37,16 +37,33 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: ColorManager.lilacPetals,
       body: Center(
-        child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (builder) => QuranPage(
-                            suraJsonData: widgejsonData, ///here we send data to qura'n page
-                          )));
-            },
-            child: const Text("Go To Quran Page : Press Here")),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (builder) => QuranPage(
+                                suraJsonData: widgejsonData, ///here we send data to qura'n page
+                              )));
+                },
+                child: const Text("Go To Quran Page : Press Here")),
+                const SizedBox(height: 20,),
+                ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (builder) => QuranPage(
+                                suraJsonData: widgejsonData, ///here we send data to qura'n page
+                              )));
+                },
+                child: const Text("Go To Azkar Page : Press Here")),
+          ],
+        ),
       ),
     );
   }

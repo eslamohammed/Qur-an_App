@@ -8,19 +8,22 @@ environment:
   sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
-  audioplayers: ^5.2.1
+  audioplayers: ^6.4.0
+  connectivity_plus: ^6.1.4
   cupertino_icons: ^1.0.2
   easy_container: ^1.0.4
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0
   fluttertoast: ^8.2.12
+  font_awesome_flutter: ^10.8.0
   http: ^1.4.0
+  internet_connection_checker: ^3.0.1
   quran:
     path: ./quran-1.2.2
+  share_plus: ^11.0.0
   string_validator: ^1.1.0
-  wakelock_plus: ^1.1.1
-
+#  wakelock_plus: ^1.1.1
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
@@ -29,13 +32,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  plugin:
-    platforms:
-      android:
-        default_package: wakelock_plus
-      ios:
-        default_package: wakelock_plus
-
+  # plugin:
+  #   platforms:
+  #     android:
+  #       default_package: wakelock_plus
+  #     ios:
+  #       default_package: wakelock_plus
   assets:
     - assets/json/surahs.json
     - assets/images/
