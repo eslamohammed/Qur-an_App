@@ -29,12 +29,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  plugin:
-    platforms:
-      android:
-        default_package: wakelock_plus
-      ios:
-        default_package: wakelock_plus
+  # plugin:
+  #   platforms:
+  #     android:
+  #       default_package: wakelock_plus
+  #     ios:
+  #       default_package: wakelock_plus
 
   assets:
     - assets/json/surahs.json
