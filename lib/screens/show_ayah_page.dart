@@ -9,6 +9,8 @@ import 'package:quran_app/screens/quran_page.dart';
 import 'package:quran_app/widgets/Toast.dart';
 import 'package:quran_app/widgets/share_sheet.dart';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../services/network_handler.dart' as TafsirService;
 
 // ignore: must_be_immutable
@@ -132,22 +134,26 @@ class _ShowAyahState extends State<ShowAyah> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
-                            onPressed: () {
-                                try {
-                                  print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
+                            onPressed: () async{
+                              try {
+                                final connectivityResult = await Connectivity().checkConnectivity();
+                                final isConnected = await InternetConnectionChecker.instance.hasConnection;
+
+                                if (connectivityResult == ConnectivityResult.none || !isConnected) {
+                                  showToast("لا يوجد اتصال بالإنترنت", isError: true);
+                                  showToast("Check your Network Connection",isError: true);
+                                  return;
+                                }
                                   play(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
                                   if (kDebugMode) {
                                       print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
                                       print(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
                                 }
-                                } catch (e) {
-                                  print(e);
-                                  showToast("Bad Connection",isError: true);
-                                  showToast("Check your Network Connection",isError: true);
-                                  print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
-                                      print(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
-                                
-                                }
+                              } catch (e) {
+                                showToast("خطأ في التشغيل أو الاتصال", isError: true);
+                                showToast("Check your Network Connection",isError: true);
+                                print("/////////////////////////////////خطأ: $e");
+                              }
                             },
                             icon: const Icon(
                               Icons.audiotrack_outlined,

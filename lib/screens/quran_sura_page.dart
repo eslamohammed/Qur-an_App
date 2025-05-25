@@ -1,12 +1,15 @@
 // ignore_for_file: deprecated_member_use, must_be_immutable
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 // import 'package:quran/dart';
 import 'package:quran/quran.dart';
 import 'package:quran_app/models/sura.dart';
 import 'package:easy_container/easy_container.dart';
 import 'package:quran_app/screens/quran_page.dart';
+import 'package:quran_app/widgets/Toast.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -49,13 +52,31 @@ class _QuranPageState extends State<QuranPage> {
     await player.play(UrlSource(url));
   }
 
+  Future<void> checkConnectionAndPlay(String reciter) async {
+      try {
+      final connectivityResult = await Connectivity().checkConnectivity();
+      final isConnected = await InternetConnectionChecker.instance.hasConnection;
+
+      if (connectivityResult == ConnectivityResult.none || !isConnected) {
+        showToast("لا يوجد اتصال بالإنترنت", isError: true);
+        showToast("Check your Network Connection",isError: true);
+        return;
+      }
+       play(getAudioURLByVerseNumber(1, reciter));
+        if (kDebugMode) {
+          print(getAudioURLByVerseNumber(1, reciter));
+        }
+    } catch (e) {
+      showToast("خطأ في التشغيل أو الاتصال", isError: true);
+      showToast("Check your Network Connection",isError: true);
+      print("/////////////////////////////////خطأ: $e");
+    }
+}
+
   @override
   void initState() {
     addFilteredData();
-    play(getAudioURLByVerseNumber(1, reciter));
-    if (kDebugMode) {
-      print(getAudioURLByVerseNumber(1, reciter));
-    }
+    checkConnectionAndPlay(reciter);
     super.initState();
   }
 
