@@ -133,13 +133,20 @@ class _ShowAyahState extends State<ShowAyah> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
-                              play(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
-                              if (kDebugMode) {
+                                try {
                                   print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
-                                  print(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
-                                showToast("Bad Connection",isError: true);
-                                showToast("Check your Network Connection",isError: true);
+                                  play(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
+                                  if (kDebugMode) {
+                                      print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
+                                      print(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
+                                }
+                                } catch (e) {
+                                  print(e);
+                                  showToast("Bad Connection",isError: true);
+                                  showToast("Check your Network Connection",isError: true);
+                                  print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
+                                      print(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
+                                
                                 }
                             },
                             icon: const Icon(
