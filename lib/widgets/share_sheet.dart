@@ -1,4 +1,6 @@
+import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // ← أضف هذا
 
@@ -19,6 +21,21 @@ class ShareSheet {
             alignment: WrapAlignment.center,
             runSpacing: 16,
             children: [
+              EasyContainer(
+                  color: Colors.green.withOpacity(0.05), ////
+                  borderRadius: 12,
+                  
+                  child: Text(
+                    verseText,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                        color: Colors.black, fontSize: 23.sp.toDouble()),
+                  ),
+                ),
+              //  Text(
+              //   verseText,
+              //   style:  TextStyle(fontSize: 23.sp.toDouble(), fontWeight: FontWeight.bold),
+              // ),
               const Text(
                 'مشاركة الآية',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

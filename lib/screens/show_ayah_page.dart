@@ -138,6 +138,8 @@ class _ShowAyahState extends State<ShowAyah> {
                               if (kDebugMode) {
                                   print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
                                   print(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
+                                showToast("Bad Connection",isError: true);
+                                showToast("Check your Network Connection",isError: true);
                                 }
                             },
                             icon: const Icon(
