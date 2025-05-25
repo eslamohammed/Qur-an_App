@@ -129,10 +129,20 @@ class _ShowAyahState extends State<ShowAyah> {
                       ),
                     ),
                     SizedBox(
-                      width: (screenSize.width * .27),
+                      width: (screenSize.width * .35),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _loadTafsir();
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.refresh,
+                                size: 24,
+                              )),
                           IconButton(
                             onPressed: () async{
                               try {
@@ -144,11 +154,13 @@ class _ShowAyahState extends State<ShowAyah> {
                                   showToast("Check your Network Connection",isError: true);
                                   return;
                                 }
-                                  play(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
+                                
+                                play(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
                                   if (kDebugMode) {
                                       print("${getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber)}");
                                       print(getAudioURLByVerseNumber(getGlobalVerseNumber(widget.suraNumber, widget.ayahNumber), reciter));
-                                }
+                                  }
+
                               } catch (e) {
                                 showToast("خطأ في التشغيل أو الاتصال", isError: true);
                                 showToast("Check your Network Connection",isError: true);
