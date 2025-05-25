@@ -18,9 +18,9 @@ dependencies:
   http: ^1.4.0
   quran:
     path: ./quran-1.2.2
+  share_plus: ^11.0.0
   string_validator: ^1.1.0
 #  wakelock_plus: ^1.1.1
-
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
@@ -35,7 +35,6 @@ flutter:
   #       default_package: wakelock_plus
   #     ios:
   #       default_package: wakelock_plus
-
   assets:
     - assets/json/surahs.json
     - assets/images/
