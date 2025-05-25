@@ -48,11 +48,11 @@ class _AdhkarPageState extends State<AdhkarPage> {
 
       appBar: AppBar(
         title: Text('أذكار المسلم',textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                      color: Colors.black, fontSize: 25.sp.toDouble(),
-                      fontWeight: FontWeight.bold
-                      ),
-                    ),
+          style: TextStyle(
+          color: Colors.black, fontSize: 25.sp.toDouble(),
+          fontWeight: FontWeight.bold
+          ),
+        ),
         elevation: 0, 
         backgroundColor: ColorManager.lilacPetals,
         centerTitle: true,
@@ -102,34 +102,5 @@ class _AdhkarPageState extends State<AdhkarPage> {
           },
         ),
       );
-    
-    // Scaffold(
-    //   appBar: AppBar(title: const Text('أذكار المسلم')),
-    //   body: adhkarData.isEmpty
-    //       ? const Center(child: CircularProgressIndicator())
-    //       : ListView.builder(
-    //           itemCount: adhkarData.length,
-    //           itemBuilder: (context, index) {
-    //             final category = adhkarData[index];
-    //             return ExpansionTile(
-    //               title: Text(category['category']),
-    //               children: List<Widget>.from(
-    //                 category['array'].map<Widget>((zekr) {
-    //                   return ListTile(
-    //                     title: Text(zekr['text']),
-    //                     subtitle: Text('التكرار: ${zekr['count']}'),
-    //                     trailing: IconButton(
-    //                       icon: const Icon(Icons.play_arrow),
-    //                       onPressed: () {
-    //                         playAudio(zekr['audio']);
-    //                       },
-    //                     ),
-    //                   );
-    //                 }),
-    //               ),
-    //             );
-    //           },
-    //         ),
-    // );
   }
 }
