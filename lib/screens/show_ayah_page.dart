@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/quran.dart';
 import 'package:quran_app/screens/quran_page.dart';
 import 'package:quran_app/widgets/Toast.dart';
+import 'package:quran_app/widgets/share_sheet.dart';
 
 import '../services/network_handler.dart' as TafsirService;
 
@@ -165,6 +166,11 @@ class _ShowAyahState extends State<ShowAyah> {
                   borderRadius: 12,
                   onTap: () async {
                     ////here
+                    final verse = getVerse(widget.suraNumber, widget.ayahNumber, verseEndSymbol: true);
+                      ShareSheet.showShareAyahOptions(
+                        context: context,
+                        verseText: verse,
+                      );
                   },
                   child: Text(
                     getVerse(widget.suraNumber, widget.ayahNumber,
@@ -180,7 +186,13 @@ class _ShowAyahState extends State<ShowAyah> {
                 child: EasyContainer(
                   color: Colors.brown.withOpacity(0.05), ////
                   borderRadius: 12,
-                  onTap: () async {},
+                  onTap: () async {
+                    final verse = getVerse(widget.suraNumber, widget.ayahNumber, verseEndSymbol: true);
+                      ShareSheet.showShareTafsirOptions(
+                        context: context,
+                        verseText: verse,
+                      );
+                  },
                   child: Text(
                     "سورة : ${getSurahNameArabic(widget.suraNumber)}\nالايه : ${widget.ayahNumber}\nوهي : سورة ${(getPlaceOfRevelation(widget.suraNumber) == 'Makkah') ? 'مكية' : 'مدنية'} \nالتفسير: ${tafsir == '' ? "فشل في جلب التفسير // افحص الاتصال" : tafsir}",
                     textDirection: TextDirection.rtl,
