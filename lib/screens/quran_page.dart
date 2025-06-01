@@ -214,6 +214,19 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                       padding: EdgeInsets.zero,
                                       constraints: BoxConstraints(),
                                       onPressed: () async {
+                                        //       if (_audioPlayer.playing) {
+                                        //   _audioPlayer.pause();
+                                        // } else {
+                                        //   showToast("لا يوجد ذكر قيد التشغيل",
+                                        //       isError: true);
+                                        // }
+                                        if (player.state ==
+                                            PlayerState.playing) {
+                                          await player.pause();
+                                        } else {
+                                          showToast("لا يوجد سورة قيد التشغيل",
+                                              isError: true);
+                                        }
                                         await player.stop();
                                       },
                                       icon: const Icon(
@@ -380,20 +393,22 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                                   : 23.1.sp,
                                           backgroundColor: Colors.transparent,
                                         ),
-                                        children: const <TextSpan>[
-                                          // TextSpan(
-                                          //   text: getVerseQCF(e["surah"], i).substring(getVerseQCF(e["surah"], i).length - 1),
-                                          //   style:  TextStyle(
-                                          //     color: isVerseStarred(
-                                          //                                                     e[
-                                          //                                                         "surah"],
-                                          //                                                     i)
-                                          //                                                 ? Colors
-                                          //                                                     .amber
-                                          //                                                 : secondaryColors[getValue("quranPageolorsIndex")] // Change color here
-                                          //   ),
-                                          // ),
-                                        ],
+                                        // children:  <TextSpan>[
+                                        //   TextSpan(
+                                        //     text: getVerseQCF(e["surah"], i).substring(getVerseQCF(e["surah"], i).length - 1),
+                                        //     style:  TextStyle(
+                                        //       color: isVerseStarred(
+                                        //           e[
+                                        //               "surah"],
+                                        //           i)
+                                        //       ? Colors
+                                        //           .amber
+                                        //       : ColorManager.error
+                                        //   // Change color here
+                                        //     ),0
+                                        // ],
+                                        //   ),
+                                        // ],
                                       ));
                                     }
                                     return spans;

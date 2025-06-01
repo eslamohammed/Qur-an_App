@@ -14,7 +14,7 @@ class AdkharDetailsPage extends StatefulWidget {
   const AdkharDetailsPage({
     Key? key,
     required this.categoryName,
-    required this.items, 
+    required this.items,
     // required this.playAudio,
   }) : super(key: key);
 
@@ -23,11 +23,11 @@ class AdkharDetailsPage extends StatefulWidget {
 }
 
 class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
-    late AudioPlayer _audioPlayer;
+  late AudioPlayer _audioPlayer;
 
   @override
   void initState() {
-     _audioPlayer = AudioPlayer();
+    _audioPlayer = AudioPlayer();
     super.initState();
   }
 
@@ -46,20 +46,21 @@ class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
       showToast("خطأ في تشغيل الصوت", isError: true);
       debugPrint('خطأ في تشغيل الصوت: $e');
     }
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.categoryName
-        ,textDirection: TextDirection.rtl,
+        title: Text(
+          widget.categoryName,
+          textDirection: TextDirection.rtl,
           style: TextStyle(
-          color: Colors.black, fontSize: 25.sp.toDouble(),
-          fontWeight: FontWeight.bold
-          ),
+              color: Colors.black,
+              fontSize: 25.sp.toDouble(),
+              fontWeight: FontWeight.bold),
         ),
-        elevation: 0, 
+        elevation: 0,
         backgroundColor: ColorManager.lilacPetals,
         centerTitle: true,
       ),
@@ -72,8 +73,7 @@ class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
             child: EasyContainer(
               color: Colors.green.withOpacity(0.1),
               borderRadius: 12,
-              onTap: () {
-              },
+              onTap: () {},
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -89,7 +89,10 @@ class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
                             fontSize: 18,
                           ),
                         ),
-                        const Divider(color: Colors.black45,thickness: 2,),
+                        const Divider(
+                          color: Colors.black45,
+                          thickness: 2,
+                        ),
                         Row(
                           children: [
                             Container(
@@ -98,10 +101,30 @@ class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: IconButton(
-                                icon: const Icon(Icons.play_arrow, color: Colors.black),
+                                icon: const Icon(Icons.play_arrow,
+                                    color: Colors.black),
                                 onPressed: () {
                                   // widget.playAudio(zekr['audio']);
                                   playAudio(zekr['audio']);
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: IconButton(
+                                icon: const Icon(Icons.pause,
+                                    color: Colors.black),
+                                onPressed: () {
+                                  if (_audioPlayer.playing) {
+                                    _audioPlayer.pause();
+                                  } else {
+                                    showToast("لا يوجد ذكر قيد التشغيل",
+                                        isError: true);
+                                  }
                                 },
                               ),
                             ),
@@ -117,7 +140,7 @@ class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
                         ),
                       ],
                     ),
-                  ), 
+                  ),
                 ],
               ),
             ),
