@@ -131,18 +131,27 @@ class _ShowAyahState extends State<ShowAyah> {
                       ),
                     ),
                     SizedBox(
-                      width: (screenSize.width * .35),
+                      width: (screenSize.width * .50),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 setState(() {
                                   _loadTafsir();
                                 });
+                                await player.stop();
                               },
                               icon: const Icon(
                                 Icons.refresh,
+                                size: 24,
+                              )),
+                          IconButton(
+                              onPressed: () async {
+                                await player.stop();
+                              },
+                              icon: const Icon(
+                                Icons.pause,
                                 size: 24,
                               )),
                           IconButton(
