@@ -34,6 +34,7 @@ class ShowAyah extends StatefulWidget {
 
 class _ShowAyahState extends State<ShowAyah> {
   int index = 0;
+  bool hasAudioStarted = false;
 
   // late PageController _pageController;
   /// get index of page number from constructor
@@ -85,6 +86,12 @@ class _ShowAyahState extends State<ShowAyah> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     super.initState();
+    // sound player ended
+    player.onPlayerComplete.listen((event) {
+      setState(() {
+        hasAudioStarted = false;
+      });
+    });
   }
 
   @override
@@ -148,7 +155,23 @@ class _ShowAyahState extends State<ShowAyah> {
                               )),
                           IconButton(
                               onPressed: () async {
-                                await player.stop();
+                                if (!hasAudioStarted) {
+                                  if (player.state == PlayerState.playing) {
+                                    setState(() {
+                                      hasAudioStarted = true;
+                                    });
+                                    await player.pause();
+                                  } else {
+                                    showToast("لا يوجد ايه قيد التشغيل",
+                                        isError: true);
+                                  }
+                                } else {
+                                  if (player.state == PlayerState.playing) {
+                                    await player.pause();
+                                  } else {
+                                    await player.resume();
+                                  }
+                                }
                               },
                               icon: const Icon(
                                 Icons.pause,
