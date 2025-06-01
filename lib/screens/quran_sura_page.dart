@@ -53,25 +53,26 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   Future<void> checkConnectionAndPlay(String reciter) async {
-      try {
+    try {
       final connectivityResult = await Connectivity().checkConnectivity();
-      final isConnected = await InternetConnectionChecker.instance.hasConnection;
+      final isConnected =
+          await InternetConnectionChecker.instance.hasConnection;
 
       if (connectivityResult == ConnectivityResult.none || !isConnected) {
         showToast("لا يوجد اتصال بالإنترنت", isError: true);
-        showToast("Check your Network Connection",isError: true);
+        showToast("Check your Network Connection", isError: true);
         return;
       }
-       play(getAudioURLByVerseNumber(1, reciter));
-        if (kDebugMode) {
-          print(getAudioURLByVerseNumber(1, reciter));
-        }
+      play(getAudioURLByVerseNumber(1, reciter));
+      if (kDebugMode) {
+        print(getAudioURLByVerseNumber(1, reciter));
+      }
     } catch (e) {
       showToast("خطأ في التشغيل أو الاتصال", isError: true);
-      showToast("Check your Network Connection",isError: true);
+      showToast("Check your Network Connection", isError: true);
       print("/////////////////////////////////خطأ: $e");
     }
-}
+  }
 
   @override
   void initState() {
@@ -92,7 +93,12 @@ class _QuranPageState extends State<QuranPage> {
       backgroundColor: ColorManager.lilacPetals,
       appBar: AppBar(
         backgroundColor: ColorManager.lilacPetals,
-        title: const Text("Quran Page",style: TextStyle(fontSize: 25,),),
+        title: const Text(
+          "Quran Page",
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),
         centerTitle: true,
       ),
       body: isLoading
