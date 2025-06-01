@@ -89,7 +89,7 @@ class _QuranViewPageState extends State<QuranViewPage> {
               setState(() {
                 highlightVerse = "";
 
-                shouldHighlightText = false;
+                shouldHighlightText = true; // reset highlight
               });
             }
             timer.cancel();
@@ -166,7 +166,7 @@ class _QuranViewPageState extends State<QuranViewPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: (screenSize.width * .27),
+                              width: (screenSize.width * .32),
                               child: Row(
                                 children: [
                                   IconButton(
@@ -192,7 +192,7 @@ class _QuranViewPageState extends State<QuranViewPage> {
                               color: ColorManager.lilacPetalsDark,
                               showBorder: true,
                               height: 20,
-                              width: 120,
+                              width: 110,
                               padding: 0,
                               margin: 0,
                               child: Center(
@@ -206,11 +206,23 @@ class _QuranViewPageState extends State<QuranViewPage> {
                               ),
                             ),
                             SizedBox(
-                              width: (screenSize.width * .27),
+                              width: (screenSize.width * .35),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   IconButton(
+                                      padding: EdgeInsets.zero,
+                                      constraints: BoxConstraints(),
+                                      onPressed: () async {
+                                        await player.stop();
+                                      },
+                                      icon: const Icon(
+                                        Icons.pause,
+                                        size: 24,
+                                      )),
+                                  IconButton(
+                                      padding: EdgeInsets.zero,
+                                      constraints: BoxConstraints(),
                                       onPressed: () {
                                         //audio icon finctionality will be add later
                                         // play(getAudioURLByVerseNumber(2, reciter));
@@ -228,6 +240,8 @@ class _QuranViewPageState extends State<QuranViewPage> {
                                         size: 24,
                                       )),
                                   IconButton(
+                                      padding: EdgeInsets.zero,
+                                      constraints: BoxConstraints(),
                                       onPressed: () {
                                         //setteng icon finctionality will be add later
                                         showToast("Comming soon",
