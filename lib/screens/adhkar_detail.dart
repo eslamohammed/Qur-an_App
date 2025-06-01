@@ -1,7 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:easy_container/easy_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:quran_app/widgets/Toast.dart';
 
 import '../utils/colors_manager.dart';
@@ -9,7 +9,6 @@ import '../utils/colors_manager.dart';
 class AdkharDetailsPage extends StatefulWidget {
   final String categoryName;
   final List<dynamic> items;
-  // final void Function(String) playAudio;  // الدالة
 
   const AdkharDetailsPage({
     Key? key,
@@ -23,10 +22,17 @@ class AdkharDetailsPage extends StatefulWidget {
 }
 
 class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
-  late AudioPlayer _audioPlayer;
+  late AudioPlayer _audioPlayer = AudioPlayer();
+  // late AudioPlayer _audioPlayer;
+  bool hasAudioStarted = false;
 
   @override
   void initState() {
+    _audioPlayer.onPlayerComplete.listen((event) {
+      setState(() {
+        hasAudioStarted = false;
+      });
+    });
     _audioPlayer = AudioPlayer();
     super.initState();
   }
@@ -38,10 +44,12 @@ class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
   }
 
   Future<void> playAudio(String relativePath) async {
-    final path = 'assets$relativePath'; // مثل: assets/audio/75.mp3
     try {
-      await _audioPlayer.setAsset(path);
-      await _audioPlayer.play();
+      final cleanPath = relativePath.startsWith('/')
+          ? relativePath.substring(1)
+          : relativePath;
+
+      await _audioPlayer.play(AssetSource(cleanPath));
     } catch (e) {
       showToast("خطأ في تشغيل الصوت", isError: true);
       debugPrint('خطأ في تشغيل الصوت: $e');
@@ -118,12 +126,31 @@ class _AdkharDetailsPageState extends State<AdkharDetailsPage> {
                               child: IconButton(
                                 icon: const Icon(Icons.pause,
                                     color: Colors.black),
-                                onPressed: () {
-                                  if (_audioPlayer.playing) {
-                                    _audioPlayer.pause();
+                                onPressed: () async {
+                                  if (!hasAudioStarted) {
+                                    if (_audioPlayer.state ==
+                                        PlayerState.playing) {
+                                      setState(() {
+                                        hasAudioStarted = true;
+                                      });
+                                      await _audioPlayer.pause();
+                                    } else {
+                                      showToast("لا يوجد ايه قيد التشغيل",
+                                          isError: true);
+                                    }
                                   } else {
-                                    showToast("لا يوجد ذكر قيد التشغيل",
-                                        isError: true);
+                                    if (_audioPlayer.state ==
+                                        PlayerState.playing) {
+                                      await _audioPlayer.pause();
+                                    } else {
+                                      await _audioPlayer.resume();
+                                    }
+
+                                    //   if (_audioPlayer.playing) {
+                                    //     _audioPlayer.pause();
+                                    //   } else {
+                                    //     showToast("لا يوجد ذكر قيد التشغيل",
+                                    //         isError: true);
                                   }
                                 },
                               ),
